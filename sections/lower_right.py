@@ -34,7 +34,7 @@ class LowerRight(QFrame):
         hbox1.addWidget(self.line_edit)
 
         # data
-        self.tr_pro_shcode = Tr_Pro_Shcode('1', '0', '047050')
+        self.tr_pro_shcode = Tr_Pro_Shcode('0', '0', '352820')
 
         self.dfs = None
         self.table = QTableWidget(3, 4)
@@ -67,7 +67,7 @@ class LowerRight(QFrame):
 
         self.table.clear()
         print('self. dfs', self.dfs)
-        self.dfs = self.dfs.drop(columns=['offervolume', 'stksvolume', 'shcode'])
+        # self.dfs = self.dfs.drop(columns=['offervolume', 'stksvolume', 'offervalue', 'stksvalue', 'shcode'])
 
         # Set the table size to match the DataFrame size
         num_rows, num_cols = self.dfs.shape
@@ -84,7 +84,6 @@ class LowerRight(QFrame):
 
         self.table.resizeColumnsToContents()
         self.table.resizeRowsToContents()
-
 
         self.update_chart(self.dfs)
 
@@ -106,7 +105,8 @@ class LowerRight(QFrame):
 
         # Convert the Plotly chart to HTML
         raw_html = '<html><head><meta charset="utf-8" /></head><body style="margin:0; padding:0;>'
-        raw_html += fig.to_html(full_html=False, include_plotlyjs='cdn')
+        content = fig.to_html(full_html=False, include_plotlyjs='cdn')
+        raw_html += content.replace("window.PlotlyConfig = {MathJaxConfig: 'local'};", "")
         raw_html += '</body></html>'
 
         # Set up the QWebEngineView

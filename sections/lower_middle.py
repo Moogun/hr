@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QFrame, QPushButton, QTableWidget, QTableWidgetItem, QRadioButton
 
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QFrame, QPushButton, QTableWidget, QTableWidgetItem, QRadioButton
 import plotly.graph_objects as go
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
@@ -80,6 +80,7 @@ class LowerMiddle(QFrame):
         self.table.resizeRowsToContents()
 
         self.update_chart(self.dfs)
+
     def update_chart(self, dfs):
         x = dfs['svalue']
         y = dfs['diff']
@@ -88,29 +89,31 @@ class LowerMiddle(QFrame):
         x = pd.to_numeric(x)
         y = pd.to_numeric(y)
 
+        def get_text_color(y_value):
+            return 'red' if y_value > 0 else 'blue'
+
         fig = go.Figure(
-            # data=[go.Bar(y=y, x=x, width=0.1)],
-            data =[go.Scatter(y=y,
-                              x=x,
-                              mode='markers+text',
-                              marker=dict(color='gray'),
-                              text=bubble_text,
-                              textposition="top center",
-                              textfont=dict(size=8)
-                              )],
+            data=[go.Scatter(y=y,
+                             x=x,
+                             mode='markers+text',
+                             marker=dict(color='gray'),
+                             text=bubble_text,
+                             textposition="top center",
+                             textfont=dict(size=9, color=[get_text_color(y_val) for y_val in y])
+                             )],
             layout={
                 'margin': {'l': 10, 'r': 10, 't': 30, 'b': 10},  # Minimized margins
-                'xaxis': {'showspikes': False,},  # Remove x-axis borders
+                'xaxis': {'showspikes': False, },  # Remove x-axis borders
                 'yaxis': {'showspikes': False},  # Remove y-axis borders
-                'shapes': [{
-                    'type': 'line',
-                    'yref': 'y', 'y0': '0', 'y1': '0',
-                    'xref': 'paper', 'x0': '0', 'x1': '1',
-                    'line': {
-                        'color': 'blue',
-                        'dash': 'dot',
-                    }
-                }]
+                # 'shapes': [{
+                #     'type': 'line',
+                #     'yref': 'y', 'y0': '0', 'y1': '0',
+                #     'xref': 'paper', 'x0': '0', 'x1': '1',
+                #     'line': {
+                #         'color': 'blue',
+                #         'dash': 'dot',
+                #     }
+                # }]
             }
         )
 
@@ -123,8 +126,6 @@ class LowerMiddle(QFrame):
         # Set up the QWebEngineView
         self.view.setHtml(raw_html)
         self.hbox3.addWidget(self.view)
-
-
 
 class ClickableTableWidget(QTableWidget):
     def __init__(self, rows, columns):

@@ -97,6 +97,9 @@ class UpperMiddle(QFrame):
         x = pd.to_numeric(x)
         y = pd.to_numeric(y)
 
+        def get_text_color(y_value):
+            return 'red' if y_value > 0 else 'blue'
+
         fig = go.Figure(
             # data=[go.Bar(y=y, x=x, width=0.1)],
             data =[go.Scatter(y=y,
@@ -105,21 +108,12 @@ class UpperMiddle(QFrame):
                               marker=dict(color='gray', size=size, sizemode='diameter'),
                               text=bubble_text,
                               textposition="top center",
-                              textfont=dict(size=9)
+                              textfont=dict(size=9, color=[get_text_color(y_val) for y_val in y])
                               )],
             layout={
                 'margin': {'l': 10, 'r': 10, 't': 30, 'b': 10},  # Minimized margins
                 'xaxis': {'showspikes': False,},  # Remove x-axis borders
                 'yaxis': {'showspikes': False},  # Remove y-axis borders
-                'shapes': [{
-                    'type':'line',
-                    'yref': 'y', 'y0': '0', 'y1': '0',
-                    'xref': 'paper', 'x0': '0', 'x1': '1',
-                    'line': {
-                        'color': 'blue',
-                        'dash': 'dot',
-                    }
-                }]
             }
         )
 
