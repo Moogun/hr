@@ -9,6 +9,7 @@ from sections.lower_middle import LowerMiddle
 from sections.lower_right import LowerRight
 
 from network.login import Login
+from company import Company
 
 class App(QWidget):
     def __init__(self):

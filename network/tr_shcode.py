@@ -1,6 +1,6 @@
 from pyxing.query import *
 import threading
-
+import time
 class Tr_Shcode:
 
     def __init__(self, shcode):
@@ -15,6 +15,7 @@ class Tr_Shcode:
         return dfs[1]
 
     def set_shcode(self, shcode):
+        print('tr_shcode', shcode)
         self.shcode = shcode
 
     def set_cvolume(self, cvolume):

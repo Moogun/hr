@@ -1,6 +1,5 @@
 from pyxing.query import *
 import threading
-
 class Tr_Pro_Shcode:
 
     def __init__(self, gubun1, gubun2, shcode):

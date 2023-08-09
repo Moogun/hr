@@ -108,7 +108,7 @@ class UpperMiddle(QFrame):
                               marker=dict(color='gray', size=size, sizemode='diameter'),
                               text=bubble_text,
                               textposition="top center",
-                              textfont=dict(size=9, color=[get_text_color(y_val) for y_val in y])
+                              textfont=dict(size=9, color=[get_text_color(i) for i in y])
                               )],
             layout={
                 'margin': {'l': 10, 'r': 10, 't': 30, 'b': 10},  # Minimized margins
