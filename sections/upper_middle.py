@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 from network.tr_val import Tr_Val
+import time
 
 class UpperMiddle(QFrame):
     def __init__(self):
@@ -25,7 +26,7 @@ class UpperMiddle(QFrame):
         self.tr_val = Tr_Val('1', '0')
 
         button = QPushButton('Update')
-        button.clicked.connect(self.update_table)
+        button.clicked.connect(self.update_multi_tables)
 
         self.radio_btn1 = QRadioButton("spi")
         self.radio_btn2 = QRadioButton("daq")
@@ -59,6 +60,9 @@ class UpperMiddle(QFrame):
             self.tr_val.set_gubun('1')
         elif self.radio_btn2.isChecked():
             self.tr_val.set_gubun('2')
+
+    def update_multi_tables(self):
+        self.update_table(self)
 
     def update_table(self):
         self.dfs = self.tr_val.fetch()

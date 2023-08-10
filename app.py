@@ -3,10 +3,12 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLay
 from sections.upper_left import UpperLeft
 from sections.upper_middle import UpperMiddle
 from sections.upper_right import UpperRight
+from sections.upper_right2 import UpperRight2
 
 from sections.lower_left import LowerLeft
 from sections.lower_middle import LowerMiddle
 from sections.lower_right import LowerRight
+from sections.lower_right2 import LowerRight2
 
 from network.login import Login
 from company import Company
@@ -25,6 +27,7 @@ class App(QWidget):
         upper_hbox.addWidget(UpperLeft())
         upper_hbox.addWidget(UpperMiddle())
         upper_hbox.addWidget(UpperRight())
+        upper_hbox.addWidget(UpperRight2())
         vbox.addLayout(upper_hbox)
 
         # Create and style lower row
@@ -32,6 +35,7 @@ class App(QWidget):
         lower_hbox.addWidget(LowerLeft())
         lower_hbox.addWidget(LowerMiddle())
         lower_hbox.addWidget(LowerRight())
+        lower_hbox.addWidget(LowerRight2())
 
         vbox.addLayout(lower_hbox)
 
