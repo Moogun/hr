@@ -11,3 +11,5 @@ class LowerLeft(QFrame):
         label = QLabel('Lower left')
         layout.addWidget(label)
 
+    def refresh(self):
+        print('a')

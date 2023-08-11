@@ -39,6 +39,7 @@ class LowerRight(QFrame):
 
         self.dfs = None
         self.table = QTableWidget(3, 4)
+        self.table.setMaximumHeight(200)
         hbox2 = QHBoxLayout()
         hbox2.addWidget(self.table)
 
@@ -50,6 +51,13 @@ class LowerRight(QFrame):
         vbox.addLayout(hbox2)
         vbox.addLayout(self.hbox3)
 
+    def refresh(self):
+        print('upper middle refresh')
+        shcode = Company().id
+        if len(shcode) > 5:
+            self.update_table()
+        else:
+            print('no valid shcode')
 
     def on_text_changed(self, text):
         print("Text changed:", text)

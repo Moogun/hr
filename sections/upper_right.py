@@ -66,6 +66,14 @@ class UpperRight(QFrame):
     #     elif self.radio_btn2.isChecked():
     #         self.tr_pro_shcode.set_gubun2('1')
 
+    def refresh(self):
+        print('upper middle refresh')
+        shcode = Company().id
+        if len(shcode) > 5:
+            self.update_table()
+        else:
+            print('no valid shcode')
+
     def update_table(self):
         comp_id = Company().id
         self.tr_shcode.set_shcode(comp_id)

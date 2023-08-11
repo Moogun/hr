@@ -26,7 +26,8 @@ class UpperMiddle(QFrame):
         self.tr_val = Tr_Val('1', '0')
 
         button = QPushButton('Update')
-        button.clicked.connect(self.update_multi_tables)
+        button.clicked.connect(self.update_table)
+        # button.clicked.connect(self.update_multi_tables)
 
         self.radio_btn1 = QRadioButton("spi")
         self.radio_btn2 = QRadioButton("daq")
@@ -63,6 +64,10 @@ class UpperMiddle(QFrame):
 
     def update_multi_tables(self):
         self.update_table(self)
+
+    def refresh(self):
+        print('upper middle refresh')
+        self.update_table()
 
     def update_table(self):
         self.dfs = self.tr_val.fetch()

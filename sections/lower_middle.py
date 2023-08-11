@@ -54,6 +54,10 @@ class LowerMiddle(QFrame):
         elif self.radio_btn2.isChecked():
             self.tr_program.set_gubun('1')
 
+    def refresh(self):
+        print('upper middle refresh')
+        self.update_table()
+
     def update_table(self):
         self.dfs = self.tr_program.fetch()
         # Wait for the event to be set

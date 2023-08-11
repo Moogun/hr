@@ -1,5 +1,7 @@
 
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QFrame
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QFrame, QMessageBox
+from PyQt5.QtCore import Qt
+
 from sections.upper_left import UpperLeft
 from sections.upper_middle import UpperMiddle
 from sections.upper_right import UpperRight
@@ -24,18 +26,28 @@ class App(QWidget):
 
         # Create and style upper row
         upper_hbox = QHBoxLayout()
-        upper_hbox.addWidget(UpperLeft())
-        upper_hbox.addWidget(UpperMiddle())
-        upper_hbox.addWidget(UpperRight())
-        upper_hbox.addWidget(UpperRight2())
+
+        self.ul = UpperLeft()
+        upper_hbox.addWidget(self.ul)
+        self.um = UpperMiddle()
+        upper_hbox.addWidget(self.um)
+        self.ur = UpperRight()
+        upper_hbox.addWidget(self.ur)
+        self.ur2 = UpperRight2()
+        upper_hbox.addWidget(self.ur2)
         vbox.addLayout(upper_hbox)
 
         # Create and style lower row
         lower_hbox = QHBoxLayout()
-        lower_hbox.addWidget(LowerLeft())
-        lower_hbox.addWidget(LowerMiddle())
-        lower_hbox.addWidget(LowerRight())
-        lower_hbox.addWidget(LowerRight2())
+
+        self.ll = LowerLeft()
+        lower_hbox.addWidget(self.ll)
+        self.lm = LowerMiddle()
+        lower_hbox.addWidget(self.lm)
+        self.lr = LowerRight()
+        lower_hbox.addWidget(self.lr)
+        self.lr2 = LowerRight2()
+        lower_hbox.addWidget(self.lr2)
 
         vbox.addLayout(lower_hbox)
 
@@ -49,3 +61,29 @@ class App(QWidget):
         login = Login('Taketheg', 'bwii1145', 'Bwiisi07@3')
         login.login()
 
+    def keyPressEvent(self, event):
+        key = event.key()
+        match key:
+            case Qt.Key_Q:
+                self.ul.refresh()
+            case Qt.Key_W:
+                self.um.refresh()
+            case Qt.Key_E:
+                self.ur.refresh()
+            case Qt.Key_R:
+                self.ur2.refresh()
+
+            case Qt.Key_A:
+                self.ll.refresh()
+            case Qt.Key_S:
+                self.lm.refresh()
+            case Qt.Key_D:
+                self.lr.refresh()
+            case Qt.Key_F:
+                self.lr2.refresh()
+            case _:
+                print('No match')
+
+
+    # def change_color_layout1(self):
+    #     self.set_widget_bg_color(self.layout1_widget, "blue")

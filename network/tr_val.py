@@ -9,6 +9,7 @@ class Tr_Val:
         self.event = threading.Event()
 
     def fetch(self):
+        print('tr_val fetch self.gubun jnilgubun', self.gubun, self.jnilgubun)
         xaquery = XAQuery()
         dfs = xaquery.block_request("t1463", gubun=self.gubun, jnilgubun=self.jnilgubun)
         self.event.set() # Signal that dfs has been filled
