@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, \
     QLabel, QFrame, QPushButton, QRadioButton, QTableWidget, QTableWidgetItem
-
+from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
@@ -113,23 +113,24 @@ class UpperMiddle(QFrame):
         # x = pd.to_numeric(x)
         y = pd.to_numeric(y)
         y_2 = pd.to_numeric(y_2)
-        y_diff = pd.to_numeric(y_diff)
-        print('y_diff', y_diff)
 
-        # def get_text_color(y_value):
-        #     return 'red' if y_value > 0 else 'blue'
+        y_diff = pd.to_numeric(y_diff)
+        y_diff = np.int64(y_diff)
+
+        def get_text_color(y_value):
+            return 'red' if y_value > 0 else 'dodgerblue'
 
         fig = go.Figure(
             data =[
-                go.Bar(x=x, y=y, name='value', marker=dict(color='grey')),
-                go.Bar(x=x, y=y_2, name='jnilvalue', marker=dict(color='tan')),
-                go.Bar(x=x, y=y_diff, name='diff', yaxis='y2', marker=dict(color='pink')),
+                go.Bar(x=x, y=y, name='val_to', marker=dict(color='grey')),
+                go.Bar(x=x, y=y_2, name='val_ye', marker=dict(color='tan')),
+                go.Bar(x=x, y=y_diff, name='diff', yaxis='y2', marker=dict(color=[get_text_color(i) for i in y_diff])), #
             ],
 
             layout={
                 'margin': {'l': 10, 'r': 10, 't': 30, 'b': 10},  # Minimized margins
-                'xaxis': {'showspikes': False,},  # Remove x-axis borders
-                'yaxis': {'showspikes': False, },  # Remove y-axis borders
+                'xaxis': {'showspikes': False, },
+                'yaxis': {'showspikes': False, },
                 'yaxis2': {'showspikes': False, 'overlaying': 'y', 'side': 'right',},
             }
         )

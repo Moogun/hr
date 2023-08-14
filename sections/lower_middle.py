@@ -6,6 +6,8 @@ import plotly.graph_objects as go
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 from network.tr_program import Tr_Program
+from company import Company
+
 class LowerMiddle(QFrame):
     def __init__(self):
         super().__init__()
@@ -147,5 +149,7 @@ class ClickableTableWidget(QTableWidget):
 
         # Get the text of the clicked item
         text = item.text()
-
         print(f"Clicked cell: Row={row}, Column={col}, Text={text}")
+
+        if len(text) == 6:
+            print('assume this is shcode and update other sections ')
