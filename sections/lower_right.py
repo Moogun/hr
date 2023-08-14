@@ -119,7 +119,7 @@ class LowerRight(QFrame):
         fig = go.Figure(
             # data=[go.Bar(y=y, x=x, width=0.1)],
             data =[go.Scatter(y=y, x=x, name='svalue', mode='lines+markers', marker=dict(color=[get_text_color(i) for i in y])),
-                   go.Scatter(x=x, y=y_bar, name='price', mode='lines+markers', yaxis='y2', marker=dict(color='gray'))
+                   go.Scatter(x=x, y=y_bar, name='price', mode='lines+markers', yaxis='y2', marker=dict(color='lightgray'))
                    ],
             layout={
                 'margin': {'l': 10, 'r': 10, 't': 30, 'b': 10},  # Minimized margins

@@ -98,31 +98,39 @@ class UpperMiddle(QFrame):
 
     def update_chart(self, dfs):
 
-        x = dfs['value']
-        y = dfs['diff']
-        bubble_text = dfs['hname']
+        # x = dfs['value']
+        # y = dfs['diff']
+        # bubble_text = dfs['hname']
 
-        size = np.ceil(pd.to_numeric(dfs['price']) / 20000)
-        x = pd.to_numeric(x)
+        x = dfs['hname']
+
+        y = dfs['value']
+        y_2 = dfs['jnilvalue']
+        y_diff = dfs['diff']
+        print('y_diff before', y_diff)
+        # size = np.ceil(pd.to_numeric(dfs['price']) / 20000)
+
+        # x = pd.to_numeric(x)
         y = pd.to_numeric(y)
+        y_2 = pd.to_numeric(y_2)
+        y_diff = pd.to_numeric(y_diff)
+        print('y_diff', y_diff)
 
-        def get_text_color(y_value):
-            return 'red' if y_value > 0 else 'blue'
+        # def get_text_color(y_value):
+        #     return 'red' if y_value > 0 else 'blue'
 
         fig = go.Figure(
-            # data=[go.Bar(y=y, x=x, width=0.1)],
-            data =[go.Scatter(y=y,
-                              x=x,
-                              mode='markers+text',
-                              marker=dict(color='gray', size=size, sizemode='diameter'),
-                              text=bubble_text,
-                              textposition="top center",
-                              textfont=dict(size=9, color=[get_text_color(i) for i in y])
-                              )],
+            data =[
+                go.Bar(x=x, y=y, name='value', marker=dict(color='grey')),
+                go.Bar(x=x, y=y_2, name='jnilvalue', marker=dict(color='tan')),
+                go.Bar(x=x, y=y_diff, name='diff', yaxis='y2', marker=dict(color='pink')),
+            ],
+
             layout={
                 'margin': {'l': 10, 'r': 10, 't': 30, 'b': 10},  # Minimized margins
                 'xaxis': {'showspikes': False,},  # Remove x-axis borders
-                'yaxis': {'showspikes': False},  # Remove y-axis borders
+                'yaxis': {'showspikes': False, },  # Remove y-axis borders
+                'yaxis2': {'showspikes': False, 'overlaying': 'y', 'side': 'right',},
             }
         )
 
