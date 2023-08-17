@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QFrame, QPushButto
 
 import plotly.graph_objects as go
 from PyQt5.QtWebEngineWidgets import QWebEngineView
-class LowerLeft(QFrame):
+class Box2(QFrame):
     def __init__(self):
         super().__init__()
         self.setStyleSheet("border: 1px solid gray;")

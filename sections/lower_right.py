@@ -5,6 +5,7 @@ from company import Company
 
 import plotly.graph_objects as go
 from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtGui import QFont
 
 class LowerRight(QFrame):
     def __init__(self):
@@ -98,6 +99,7 @@ class LowerRight(QFrame):
             for row in range(num_rows):
                 for col in range(num_cols):
                     item = QTableWidgetItem(str(self.dfs.iloc[row][col]))
+                    item.setFont(font)
                     self.table.setItem(row, col, item)
 
             self.table.resizeColumnsToContents()
@@ -110,21 +112,25 @@ class LowerRight(QFrame):
 
         y = dfs['svalue']
         y = pd.to_numeric(y)
+
+        # y2 = dfs['svolume']
+        # y2 = pd.to_numeric(y2)
+
         y_bar = dfs['price']
         y_bar = pd.to_numeric(y_bar)
 
         def get_text_color(y_value):
-            return 'red' if y_value > 0 else 'CornflowerBlue'
+            return 'pink' if y_value > 0 else 'CornflowerBlue'
 
         fig = go.Figure(
             # data=[go.Bar(y=y, x=x, width=0.1)],
-            data =[go.Scatter(y=y, x=x, name='svalue', mode='lines+markers', marker=dict(color=[get_text_color(i) for i in y])),
-                   go.Scatter(x=x, y=y_bar, name='price', mode='lines+markers', yaxis='y2', marker=dict(color='lightgray'))
-                   ],
+            data=[go.Scatter(y=y, x=x, name='svalue', mode='lines+markers', yaxis='y2', marker=dict(color=[get_text_color(i) for i in y])),
+                  go.Scatter(x=x, y=y_bar, name='price', mode='lines+markers', marker=dict(color='lightgray'))
+                  ],
             layout={
                 'margin': {'l': 10, 'r': 10, 't': 30, 'b': 10},  # Minimized margins
                 'xaxis': {'showspikes': False, 'autorange': 'reversed'},  # Remove x-axis borders
-                'yaxis': {'showspikes': False,  },  # Remove y-axis borders
+                'yaxis': {'showspikes': False, },  # Remove y-axis borders
                 'yaxis2': {'showspikes': False, 'overlaying': 'y', 'side': 'right'},
 
             }
