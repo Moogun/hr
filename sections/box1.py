@@ -44,14 +44,14 @@ class Box1(QFrame):
         self.line_edit .setFixedWidth(50)
         self.line_edit.textChanged.connect(self.on_text_changed)
 
-        button = QPushButton('Update')
-        button.clicked.connect(self.on_button_clicked)
-        button.setFixedWidth(50)
+        # button = QPushButton('Update')
+        # button.clicked.connect(self.on_button_clicked)
+        # button.setFixedWidth(50)
 
         vbox2 = QVBoxLayout()
         vbox2.addWidget(self.label)
         vbox2.addWidget(self.line_edit)
-        vbox2.addWidget(button)
+        # vbox2.addWidget(button)
         vbox.addLayout(vbox2)
 
     def on_radio_button_toggled(self):
@@ -67,9 +67,6 @@ class Box1(QFrame):
             print('shcode updated', self.p_instance.shcode)
         else:
             print('not 6 digits')
-
-    def on_button_clicked(self):
-        self.controller.ask_tr_val()
 
     def refresh(self):
         print('q')

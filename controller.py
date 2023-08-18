@@ -11,3 +11,8 @@ class Controller:
         data = self.network_model.fetch_tr_val()
         self.model.set_tr_val(data)
         self.view.update_tr_val()
+
+    def ask_tr_pro(self):
+        data = self.network_model.fetch_tr_pro()
+        self.model.set_tr_pro(data)
+        self.view.update_tr_pro()

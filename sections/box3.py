@@ -6,16 +6,14 @@ from PyQt5.QtGui import QColor
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 from PyQt5.QtWebEngineWidgets import QWebEngineView
+from color_book import color_dict
+from q_params import Q_Params
 
-color_dict = {
-    'lavender': QColor(230, 230, 250),
-    'thistle': QColor(216, 191, 216),
-    'plum': QColor(221, 160, 221)
-}
 class Box3(QFrame):
 
     def __init__(self, model):
         super().__init__()
+        self.p_instance = Q_Params()
         self.model = model
         self.dfs = None
         self.view = QWebEngineView()
@@ -29,6 +27,8 @@ class Box3(QFrame):
         self.table = QTableWidget(3, 4)
         # Set the selection behavior to highlight the entire row
         self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.table.itemSelectionChanged.connect(self.row_selected)  # Connect the signal
+
         vbox1.addWidget(self.table)
 
         vbox.addLayout(vbox1)
@@ -39,6 +39,9 @@ class Box3(QFrame):
 
         if self.dfs is not None:
             self.table.clear()
+
+            # csp_path = 'val.csv'
+            # self.dfs.to_csv(csp_path, index=False)
 
             self.dfs = self.dfs.drop(columns=['sign', 'bef_diff', 'filler'])
 
@@ -72,6 +75,16 @@ class Box3(QFrame):
         row_items = [self.table.item(row, col) for col in range(self.table.columnCount())]
         for item in row_items:
             item.setBackground(color)
+
+    def row_selected(self):
+        selected_rows = self.table.selectionModel().selectedRows()
+
+        if selected_rows:
+            selected_row = selected_rows[0].row()
+            selected_data = self.dfs.iloc[selected_row]
+            # print("Selected Row Data:", selected_data['shcode'])
+            shcode = selected_data['shcode']
+            self.p_instance.shcode = shcode
 
     # self.update_chart(self.dfs)
 

@@ -42,6 +42,8 @@ class View(QWidget):
         self.box3.update_tr_val()
         # print(self.model.get_tr_val())
         # self.label.setText(f"Data: {self.model.get_tr_val()}")
+    def update_tr_pro(self):
+        self.box5.update_tr_pro()
 
     def keyPressEvent(self, event):
         key = event.key()
@@ -49,13 +51,24 @@ class View(QWidget):
             case Qt.Key_Q:
                 print('111')
             case Qt.Key_3:
-                #
                 # not sure if this is good or bad
                 self.p_instance.market = 'p'
-                self.box1.on_button_clicked()
+                self.controller.ask_tr_val()
+                # self.box1.ask_tr_val()
             case Qt.Key_E:
                 self.p_instance.market = 'q'
-                self.box1.on_button_clicked()
+                self.controller.ask_tr_val()
+                # self.box1.ask_tr_val()
+
+            case Qt.Key_5:
+                self.p_instance.market = 'p'
+                self.controller.ask_tr_pro()
+                # self.box1.ask_tr_pro()
+
+            case Qt.Key_T:
+                self.p_instance.market = 'q'
+                self.controller.ask_tr_pro()
+                # self.box1.ask_tr_pro()
             #     self.ul.refresh()
             # case Qt.Key_W:
             #     self.um.refresh()
@@ -75,4 +88,6 @@ class View(QWidget):
             case _:
                 print('No match')
 
+    def set_shcode(self, shcode):
+        self.p_instance.shcode = shcode
 

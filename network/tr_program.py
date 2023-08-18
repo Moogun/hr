@@ -17,3 +17,6 @@ class Tr_Program:
 
     def set_gubun(self, gubun):
         self.gubun = gubun
+
+    def set_gubun2(self, gubun2):
+        self.gubun2 = gubun2
