@@ -3,6 +3,7 @@ from network.tr_program import Tr_Program
 from q_params import Q_Params
 from datetime import datetime
 import pandas as pd
+from network.tr_shcode import Tr_Shcode
 
 class NetworkModel:
     def __init__(self):

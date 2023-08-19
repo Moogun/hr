@@ -1,7 +1,7 @@
 class Q_Params:
     _instance = None
 
-    def __init__(self, shcode='None', market='p'):
+    def __init__(self, shcode=None, market='p'):
         self.shcode = shcode
         self.market = market
 
@@ -11,6 +11,7 @@ class Q_Params:
         return cls._instance
 
     def set_shcode(self, shcode):
+        print('set_shcode', shcode)
         self.shcode = shcode
 
     def set_market(self, market):

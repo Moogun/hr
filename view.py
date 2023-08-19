@@ -19,7 +19,7 @@ class View(QWidget):
         self.box1 = Box1(self.controller)
         self.box2 = Box2()
         self.box3 = Box3(self.model)
-        self.box4 = Box4()
+        self.box4 = Box4(self.model)
         self.box5 = Box5(self.model)
 
         vbox = QVBoxLayout()
@@ -45,6 +45,9 @@ class View(QWidget):
     def update_tr_pro(self):
         self.box5.update_tr_pro()
 
+    def update_tr_live(self):
+        self.box4.update_tr_live()
+
     def keyPressEvent(self, event):
         key = event.key()
         match key:
@@ -68,7 +71,10 @@ class View(QWidget):
             case Qt.Key_T:
                 self.p_instance.market = 'q'
                 self.controller.ask_tr_pro()
-                # self.box1.ask_tr_pro()
+
+            case Qt.Key_4:
+                print('key4 shcode', self.p_instance.shcode)
+
             #     self.ul.refresh()
             # case Qt.Key_W:
             #     self.um.refresh()

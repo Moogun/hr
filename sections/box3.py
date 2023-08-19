@@ -24,16 +24,16 @@ class Box3(QFrame):
         label = QLabel('TR VAL')
         vbox1.addWidget(label)
 
-        self.table = QTableWidget(3, 4)
-        # Set the selection behavior to highlight the entire row
-        self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.table.itemSelectionChanged.connect(self.row_selected)  # Connect the signal
-
+        self.table = QTableWidget(1, 1)
         vbox1.addWidget(self.table)
 
         vbox.addLayout(vbox1)
 
     def update_tr_val(self):
+        # # Set the selection behavior to highlight the entire row
+        self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.table.itemSelectionChanged.connect(self.row_selected)  # Connect the signal
+
         self.dfs = self.model.get_tr_val()
         print('--', self.dfs)
 
@@ -83,8 +83,10 @@ class Box3(QFrame):
             selected_row = selected_rows[0].row()
             selected_data = self.dfs.iloc[selected_row]
             # print("Selected Row Data:", selected_data['shcode'])
-            shcode = selected_data['shcode']
-            self.p_instance.shcode = shcode
+            if selected_data['shcode'] is not None:
+                shcode = selected_data['shcode']
+                print('Selected Row Data', shcode)
+                self.p_instance.shcode = shcode
 
     # self.update_chart(self.dfs)
 

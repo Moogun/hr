@@ -35,7 +35,9 @@ class Box5(QFrame):
             self.dfs['sell_ratio'] = (b/c).round(2)
             self.dfs['buy_ratio'] = (a/c).round(2)
 
-            self.dfs = self.dfs.drop(columns=['svalue', 'offervalue', 'stksvalue', 'sgta', 'sign'])
+            tril = 1000000000000
+            self.dfs['sgta'] = (pd.to_numeric(self.dfs['sgta']) / tril).round(2)
+            self.dfs = self.dfs.drop(columns=['svalue', 'offervalue', 'stksvalue', 'sign'])
 
             num_rows, num_cols = self.dfs.shape
             self.table.setRowCount(num_rows)

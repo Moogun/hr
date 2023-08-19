@@ -1,7 +1,6 @@
 import pandas as pd
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QFrame, QPushButton, QHBoxLayout, QTableWidgetItem, QTableWidget, QRadioButton, QLineEdit
 from network.tr_pro_shcode import Tr_Pro_Shcode
-from company import Company
 
 import plotly.graph_objects as go
 from PyQt5.QtWebEngineWidgets import QWebEngineView
