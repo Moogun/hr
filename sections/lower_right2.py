@@ -63,6 +63,7 @@ class LowerRight2(QFrame):
         # Add the horizontal layouts to the main vertical layout
         vbox.addLayout(hbox1)
         vbox.addLayout(hbox2)
+
         vbox.addLayout(self.hbox3)
 
     # def on_radio_button_toggled(self):

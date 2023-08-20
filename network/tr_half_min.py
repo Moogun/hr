@@ -12,8 +12,9 @@ class Tr_Half_Min:
         xaquery = XAQuery()
         dfs = xaquery.block_request("t1302", shcode=self.shcode)
         self.event.set() # Signal that dfs has been filled
-        print('dfs half min', dfs)
-        return dfs[0]
+        print('dfs half min 000000 ', dfs[0])
+        print('dfs half min 111111 ', dfs[1])
+        return dfs[1]
 
     def set_shcode(self, shcode):
         print('tr_Half_Min', shcode)

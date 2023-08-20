@@ -55,12 +55,13 @@ class NetworkModel:
                 self.tr_half_min = Tr_Half_Min(sh)
             else:
                 print('sh ', sh, '- samsung')
-                self.tr_half_min = Tr_Half_Min('003609')
+                self.tr_half_min = Tr_Half_Min('005930')
         except:
             print('Cause ? ')
 
         try:
             self.dfs = self.tr_half_min.fetch()
+            print('second try --- 1')
             self.tr_pro.event.wait()
         except:
             print('second try block ')
