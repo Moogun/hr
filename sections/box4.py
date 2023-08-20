@@ -32,8 +32,9 @@ class Box4(QFrame):
 
         vbox.addLayout(vbox1)
 
-    def update_tr_live_30s(self):
-        pass
+    def update_tr_half_min(self):
+        self.dfs = self.model.get_tr_half_min()
+        print('get_tr_half_min ', self.dfs)
 
 #     def update_table(self):
 #         self.dfs = self.tr_program.fetch()

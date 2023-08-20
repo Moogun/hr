@@ -16,3 +16,9 @@ class Controller:
         data = self.network_model.fetch_tr_pro()
         self.model.set_tr_pro(data)
         self.view.update_tr_pro()
+
+    def ask_tr_half_min(self):
+        data = self.network_model.fetch_tr_half_min()
+        self.model.set_tr_half_min(data)
+        self.view.update_tr_half_min()
+

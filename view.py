@@ -45,8 +45,8 @@ class View(QWidget):
     def update_tr_pro(self):
         self.box5.update_tr_pro()
 
-    def update_tr_live(self):
-        self.box4.update_tr_live()
+    def update_tr_half_min(self):
+        self.box4.update_tr_half_min()
 
     def keyPressEvent(self, event):
         key = event.key()
@@ -74,7 +74,7 @@ class View(QWidget):
 
             case Qt.Key_4:
                 print('key4 shcode', self.p_instance.shcode)
-
+                self.controller.ask_tr_half_min()
             #     self.ul.refresh()
             # case Qt.Key_W:
             #     self.um.refresh()

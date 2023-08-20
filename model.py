@@ -19,3 +19,11 @@ class Model:
 
     def get_tr_pro(self):
         return self.tr_pro
+
+
+    # BOX4
+    def set_tr_half_min(self, value):
+        self.tr_half_min = value
+
+    def get_tr_half_min(self):
+        return self.tr_half_min

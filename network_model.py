@@ -1,5 +1,6 @@
 from network.tr_val import Tr_Val
 from network.tr_program import Tr_Program
+from network.tr_half_min import Tr_Half_Min
 from q_params import Q_Params
 from datetime import datetime
 import pandas as pd
@@ -43,4 +44,24 @@ class NetworkModel:
         # self.dfs['time'] = formatted_time
 
         self.tr_pro.event.wait()
+        return self.dfs
+
+    def fetch_tr_half_min(self):
+        sh = self.p_instance.shcode
+
+        try:
+            if sh is not None:
+                print('sh ', sh)
+                self.tr_half_min = Tr_Half_Min(sh)
+            else:
+                print('sh ', sh, '- samsung')
+                self.tr_half_min = Tr_Half_Min('003609')
+        except:
+            print('Cause ? ')
+
+        try:
+            self.dfs = self.tr_half_min.fetch()
+            self.tr_pro.event.wait()
+        except:
+            print('second try block ')
         return self.dfs
