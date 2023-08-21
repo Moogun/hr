@@ -6,6 +6,8 @@ from sections.box2 import Box2
 from sections.box3 import Box3
 from sections.box4 import Box4
 from sections.box5 import Box5
+from sections.box6 import Box6
+from sections.box8 import Box8
 
 from q_params import Q_Params
 class View(QWidget):
@@ -21,6 +23,8 @@ class View(QWidget):
         self.box3 = Box3(self.model)
         self.box4 = Box4(self.model)
         self.box5 = Box5(self.model)
+        self.box6 = Box6(self.model)
+        self.box8 = Box8(self.model)
 
         vbox = QVBoxLayout()
 
@@ -32,6 +36,8 @@ class View(QWidget):
         l_box = QHBoxLayout()
         l_box.addWidget(self.box2)
         l_box.addWidget(self.box4)
+        l_box.addWidget(self.box6)
+        l_box.addWidget(self.box8)
 
         vbox.addLayout(u_box)
         vbox.addLayout(l_box)
@@ -47,6 +53,9 @@ class View(QWidget):
 
     def update_tr_half_min(self):
         self.box4.update_tr_half_min()
+
+    def update_tr_pro_shcode(self):
+        self.box6.update_tr_pro_shcode()
 
     def keyPressEvent(self, event):
         key = event.key()
@@ -75,6 +84,14 @@ class View(QWidget):
             case Qt.Key_4:
                 print('key4 shcode', self.p_instance.shcode)
                 self.controller.ask_tr_half_min()
+
+            case Qt.Key_6:
+                print('key6 ')
+                self.controller.ask_tr_pro_shcode()
+
+            case Qt.Key_8:
+                print('key8 ')
+                self.controller.ask_tr_pro_shcode()
             #     self.ul.refresh()
             # case Qt.Key_W:
             #     self.um.refresh()

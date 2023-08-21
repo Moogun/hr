@@ -3,7 +3,8 @@ class Model:
         self.data = 0
         self.tr_val = None
         self.tr_pro = None
-        self.tr_live_30s = None
+        self.tr_half_min = None
+        self.tr_pro_shcode = None
 
 
     # BOX3
@@ -27,3 +28,12 @@ class Model:
 
     def get_tr_half_min(self):
         return self.tr_half_min
+
+    # BOX 6
+    def set_tr_pro_shcode(self, value):
+        print('setting, ', value)
+        self.tr_pro_shcode = value
+
+    def get_tr_pro_shcode(self):
+        print('getting ')
+        return self.tr_pro_shcode

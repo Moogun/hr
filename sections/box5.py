@@ -1,12 +1,14 @@
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, \
-    QLabel, QFrame, QPushButton, QRadioButton, QTableWidget, QTableWidgetItem
+    QLabel, QFrame, QPushButton, QRadioButton, QTableWidget, QTableWidgetItem, QAbstractItemView
 import pandas as pd
 from color_book import color_dict
+from q_params import Q_Params
 
 class Box5(QFrame):
     def __init__(self, model):
         super().__init__()
         self.model = model
+        self.p_instance = Q_Params()
 
         vbox = QVBoxLayout(self)
 
@@ -22,6 +24,9 @@ class Box5(QFrame):
     def update_tr_pro(self):
         self.dfs = self.model.get_tr_pro()
         print('view update_tr_pro', self.dfs)
+
+        self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.table.itemSelectionChanged.connect(self.row_selected)  # Connect the signal
 
         # csp_path = 'pro.csv'
         # self.dfs.to_csv(csp_path, index=False)
@@ -57,15 +62,30 @@ class Box5(QFrame):
 
     def color_rows(self, num_rows, num_cols):
         for row in range(num_rows):
-            cell_value = pd.to_numeric(self.dfs.loc[row, 'diff'])
-            if 0 <= cell_value < 3:
+            vol = pd.to_numeric(self.dfs.loc[row, 'svolume'])
+            diff = pd.to_numeric(self.dfs.loc[row, 'diff'])
+            if vol < 0 and diff < 0:
+                self.color_row(row, color_dict['blush'])
+            elif vol < 0 and diff > 0:
+                self.color_row(row, color_dict['cornflowerblue'])
+            elif vol > 0 and diff > 0:
+                self.color_row(row, color_dict['lightgreen'])
+            else:
                 self.color_row(row, color_dict['lavender'])
-            elif 3 <= cell_value < 7:
-                self.color_row(row, color_dict['thistle'])
-            elif 7 <= cell_value < 1000:
-                self.color_row(row, color_dict['plum'])
 
     def color_row(self, row, color):
         row_items = [self.table.item(row, col) for col in range(self.table.columnCount())]
         for item in row_items:
             item.setBackground(color)
+
+    def row_selected(self):
+        selected_rows = self.table.selectionModel().selectedRows()
+
+        if selected_rows:
+            selected_row = selected_rows[0].row()
+            selected_data = self.dfs.iloc[selected_row]
+            # print("Selected Row Data:", selected_data['shcode'])
+            if selected_data['shcode'] is not None:
+                shcode = selected_data['shcode']
+                print('Selected Row Data', shcode)
+                self.p_instance.shcode = shcode

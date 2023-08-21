@@ -1,5 +1,6 @@
 from network.tr_val import Tr_Val
 from network.tr_program import Tr_Program
+from network.tr_pro_shcode import Tr_Pro_Shcode
 from network.tr_half_min import Tr_Half_Min
 from q_params import Q_Params
 from datetime import datetime
@@ -46,6 +47,28 @@ class NetworkModel:
         self.tr_pro.event.wait()
         return self.dfs
 
+    def fetch_tr_pro_shcode(self):
+        # 0 수량, 1 금액
+        # 0 시간, 1, 일별,
+
+        sh = self.p_instance.shcode
+        if sh is not None:
+            self.tr_pro_shcode = Tr_Pro_Shcode('0', '0', sh)
+        else:
+            # 005930 Samsung
+            self.tr_pro_shcode = Tr_Pro_Shcode('0', '0', '005930')
+
+        try:
+            self.dfs = self.tr_pro_shcode.fetch()
+            print('0 ----------------', self.dfs)
+            self.tr_pro_shcode.event.wait()
+            print('1----------------')
+        except:
+            print('tr_pro_shcode exception')
+
+        return self.dfs
+
+
     def fetch_tr_half_min(self):
         sh = self.p_instance.shcode
 
@@ -66,3 +89,4 @@ class NetworkModel:
         except:
             print('second try block ')
         return self.dfs
+

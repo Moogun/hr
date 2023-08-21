@@ -60,41 +60,41 @@ class Box4(QFrame):
                 item = QTableWidgetItem(str(self.dfs.iloc[row][col]))
                 self.table.setItem(row, col, item)
 
+        # print('num rows', num_rows, num_cols)
         # self.color_rows(num_rows, num_cols)
 
         self.table.resizeColumnsToContents()
         self.table.resizeRowsToContents()
 
-        self.update_chart(self.dfs)
-#     def color_rows(self, num_rows, num_cols):
-#         for row in range(num_rows):
-#             prev_row = row-1
-#             if row > 1:
-#                 cell_value = pd.to_numeric(self.dfs.loc[row, 'revolume'])
-#                 prev_cell_value = pd.to_numeric(self.dfs.loc[prev_row, 'revolume'])
-#
-#                 print('cell_value', cell_value)
-#                 print('prev_', prev_cell_value)
-#
-#                 if cell_value > prev_cell_value:
-#                     print('posi')
-#                     self.color_row(row, color_dict['pink'])
-#                 else:
-#                     print('nega')
-#                     self.color_row(row, color_dict['gray'])
-
-    def color_row(self, row, color):
-        row_items = [self.table.item(row, col) for col in range(self.table.columnCount())]
-        for item in row_items:
-            item.setBackground(color)
+        # self.update_chart(self.dfs)
+    # def color_rows(self, num_rows, num_cols):
+    #     for row in range(num_rows):
+    #         prev_row = row+1
+    #         print('limit', '-', row, prev_row)
+    #         if 0 < row < prev_row and prev_row < 20:
+    #             pass
+    #             cell_value = pd.to_numeric(self.dfs.loc[row, 'revolume'])
+    #             prev_cell_value = pd.to_numeric(self.dfs.loc[prev_row, 'revolume'])
+    #
+    #             # print('cell_value', cell_value)
+    #             # print('prev_', prev_cell_value)
+    #             #
+    #             if cell_value > prev_cell_value:
+    #                 print('posi')
+    #                 self.color_row(row, color_dict['pink'])
+    #             else:
+    #                 print('nega')
+    #                 self.color_row(row, color_dict['gray'])
+    #
+    # def color_row(self, row, color):
+    #     row_items = [self.table.item(row, col) for col in range(self.table.columnCount())]
+    #     for item in row_items:
+    #         item.setBackground(color)
 
     def update_chart(self, dfs):
         x = dfs['chetime']
-        y = dfs['cvolume']
-        # bubble_text = dfs['hname']
-        #
-        # x = pd.to_numeric(x)
-        # y = pd.to_numeric(y)
+        y = dfs['revolume']
+        bubble_text = dfs['cvolume']
 
         # x = dfs['hname']
         #
