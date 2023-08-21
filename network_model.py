@@ -1,11 +1,13 @@
 from network.tr_val import Tr_Val
+from network.tr_days import Tr_Days
 from network.tr_program import Tr_Program
 from network.tr_pro_shcode import Tr_Pro_Shcode
 from network.tr_half_min import Tr_Half_Min
+from network.ready_short import Ready_Short
 from q_params import Q_Params
-from datetime import datetime
 import pandas as pd
 from network.tr_shcode import Tr_Shcode
+from datetime import datetime, timedelta
 
 class NetworkModel:
     def __init__(self):
@@ -90,3 +92,57 @@ class NetworkModel:
             print('second try block ')
         return self.dfs
 
+    def fetch_tr_days(self):
+        sh = self.p_instance.shcode
+
+        dt = datetime.now()
+        dt_date = str(dt.date())
+
+        today = dt.strptime(dt_date, "%Y-%m-%d")
+        todt = today.strftime("%Y%m%d")
+
+        thirty_weeks_ago = today.date() - timedelta(weeks=30)
+        fromdt = thirty_weeks_ago.strftime("%Y%m%d")
+
+        if sh is not None:
+            self.tr_days = Tr_Days(sh, '0', fromdt, todt)
+        else:
+            print('sh ', sh, '- samsung')
+            self.tr_days = Tr_Days('005930', '0', fromdt, todt)
+
+        try:
+            self.dfs = self.tr_days.fetch()
+            print('tr days second try --- 1', self.dfs)
+            self.tr_days.event.wait()
+        except:
+            print('tr days second try block ')
+
+        return self.dfs
+
+
+    def fetch_ready_short(self):
+        sh = self.p_instance.shcode
+
+        dt = datetime.now()
+        dt_date = str(dt.date())
+
+        today = dt.strptime(dt_date, "%Y-%m-%d")
+        todt = today.strftime("%Y%m%d")
+
+        thirty_weeks_ago = today.date() - timedelta(weeks=30)
+        fromdt = thirty_weeks_ago.strftime("%Y%m%d")
+
+        if sh is not None:
+            self.ready_short = Ready_Short(sh, fromdt, todt)
+        else:
+            print('sh ', sh, '- samsung')
+            self.ready_short = Ready_Short('005930', fromdt, todt)
+
+        try:
+            self.dfs = self.ready_short.fetch()
+            print('ready_short second try --- 1', self.dfs)
+            self.tr_days.event.wait()
+        except:
+            print('ready_short second try block ')
+
+        return self.dfs

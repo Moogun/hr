@@ -17,7 +17,7 @@ class Box8(QFrame):
         vbox = QVBoxLayout(self)
 
         vbox1 = QVBoxLayout()
-        label = QLabel('BOX 8')
+        label = QLabel('BOX-8 READY_SHORT')
         vbox1.addWidget(label)
 
         self.table = QTableWidget(1, 1)
@@ -30,27 +30,23 @@ class Box8(QFrame):
         vbox.addLayout(self.hbox1)
 
 
-    def update_tr_pro_shcode(self):
-        self.dfs = self.model.get_tr_pro_shcode()
-        print('view update_tr_pro_shcode', self.dfs)
-        if self.dfs is not None:
-            self.table.clear()
+    def update_ready_short(self):
+        self.dfs = self.model.get_ready_short()
+        print('view update_get_ready_short', self.dfs)
 
-            # a = pd.to_numeric(self.dfs['stksvolume'])
-            # b = pd.to_numeric(self.dfs['offervolume'])
-            # c = pd.to_numeric(self.dfs['volume'])
-            # self.dfs['sell_ratio'] = (b / c).round(2)
-            # self.dfs['buy_ratio'] = (a / c).round(2)
-            #
-            # tril = 1000000000000
-            # self.dfs['sgta'] = (pd.to_numeric(self.dfs['sgta']) / tril).round(2)
-            self.dfs = self.dfs.drop(columns=['date', 'sign','offervalue', 'stksvalue',
-                                              'offervolume','stksvolume',])
+        self.table.clear()
 
+        if self.dfs.empty:
+            print("empty data")
+        else:
+            self.dfs = self.dfs.drop(columns=['sign'])
+
+            # Set the table size to match the DataFrame size
             num_rows, num_cols = self.dfs.shape
             self.table.setRowCount(num_rows)
             self.table.setColumnCount(num_cols)
 
+            # Set the column headers to match the DataFrame column indices
             self.table.setHorizontalHeaderLabels(list(self.dfs.columns))
 
             for row in range(num_rows):
@@ -58,33 +54,39 @@ class Box8(QFrame):
                     item = QTableWidgetItem(str(self.dfs.iloc[row][col]))
                     self.table.setItem(row, col, item)
 
+            self.table.resizeColumnsToContents()
+            self.table.resizeRowsToContents()
+
             self.update_chart(self.dfs)
-            # self.color_rows(num_rows, num_cols)
-
+    #
     def update_chart(self, dfs):
-        print('dfs', dfs, '0000')
-        x = dfs['time']
-        y_price = dfs['price']
+        x = dfs['date']
+        y = dfs['price']
+        y = pd.to_numeric(y)
 
-        x = pd.to_numeric(x)
-        y_price = pd.to_numeric(y_price)
-
-        y_bar = dfs['svolume']
+        y_bar = dfs['tovolume']
         y_bar = pd.to_numeric(y_bar)
 
-        miny, maxy = self.adjust_y_axis_range(y_bar)
-        print('ranges', miny, maxy)
+        y_bar2 = dfs['upvolume']
+        y_bar2 = pd.to_numeric(y_bar2)
+
+        y_bar3 = dfs['dnvolume']
+        y_bar3 = pd.to_numeric(y_bar3)
 
         fig = go.Figure(
             data=[
-                go.Bar(x=x, y=y_bar, name='vol', marker=dict(color='gray')),
-                go.Scatter(x=x, y=y_price, name='price', yaxis='y2', mode='lines+markers'),
+                go.Scatter(y=y, x=x, name='price', mode='lines+markers'),
+                go.Scatter(x=x, y=y_bar, mode='lines+markers', yaxis='y2', name='remaining',
+                           marker=dict(color='gray')),
+                go.Bar(x=x, y=y_bar2, name='new', marker=dict(color='lightblue')),
+                go.Bar(x=x, y=y_bar3, name='off', marker=dict(color='salmon')),
             ],
             layout={
                 'margin': {'l': 10, 'r': 10, 't': 30, 'b': 10},  # Minimized margins
                 'xaxis': {'showspikes': False, 'autorange': 'reversed'},  # Remove x-axis borders
-                'yaxis': {'showspikes': False, 'range': [miny, maxy]},
-                'yaxis2': {'showspikes': False, 'overlaying': 'y', 'side': 'right'},  # Second y-axis# Remove y-axis borders
+                'yaxis': {'showspikes': False},
+                'yaxis2': {'showspikes': False, 'overlaying': 'y', 'side': 'right'},
+                # Second y-axis# Remove y-axis borders
             }
         )
 
@@ -97,13 +99,3 @@ class Box8(QFrame):
         # Set up the QWebEngineView
         self.view.setHtml(raw_html)
         self.hbox1.addWidget(self.view)
-
-    def adjust_y_axis_range(self, y):
-        min_y = min(y)
-        max_y = max(y)
-
-        y_padding = (max_y - min_y) * 0.1
-        min_y -= y_padding
-        max_y += y_padding
-
-        return (min_y, max_y)

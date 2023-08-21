@@ -38,8 +38,8 @@ class Box1(QFrame):
         # vbox2.addWidget(self.radio_btn4)
 
         # vbox.addLayout(vbox2)
-
-        self.label = QLabel('SH')
+        sh = self.p_instance.shcode
+        self.label = QLabel('SH: '+ str(sh))
         self.line_edit = QLineEdit()
         self.line_edit .setFixedWidth(50)
         self.line_edit.textChanged.connect(self.on_text_changed)

@@ -19,7 +19,7 @@ class View(QWidget):
         self.p_instance = Q_Params()
 
         self.box1 = Box1(self.controller)
-        self.box2 = Box2()
+        self.box2 = Box2(self.model)
         self.box3 = Box3(self.model)
         self.box4 = Box4(self.model)
         self.box5 = Box5(self.model)
@@ -44,6 +44,9 @@ class View(QWidget):
 
         self.setLayout(vbox)
 
+    def update_tr_days(self):
+        self.box2.update_tr_days()
+
     def update_tr_val(self):
         self.box3.update_tr_val()
         # print(self.model.get_tr_val())
@@ -57,6 +60,9 @@ class View(QWidget):
     def update_tr_pro_shcode(self):
         self.box6.update_tr_pro_shcode()
 
+    def update_ready_short(self):
+        self.box8.update_ready_short()
+
     def keyPressEvent(self, event):
         key = event.key()
         match key:
@@ -66,16 +72,17 @@ class View(QWidget):
                 # not sure if this is good or bad
                 self.p_instance.market = 'p'
                 self.controller.ask_tr_val()
-                # self.box1.ask_tr_val()
+
             case Qt.Key_E:
                 self.p_instance.market = 'q'
                 self.controller.ask_tr_val()
-                # self.box1.ask_tr_val()
+
+            case Qt.Key_2:
+                self.controller.ask_tr_days()
 
             case Qt.Key_5:
                 self.p_instance.market = 'p'
                 self.controller.ask_tr_pro()
-                # self.box1.ask_tr_pro()
 
             case Qt.Key_T:
                 self.p_instance.market = 'q'
@@ -91,7 +98,7 @@ class View(QWidget):
 
             case Qt.Key_8:
                 print('key8 ')
-                self.controller.ask_tr_pro_shcode()
+                self.controller.ask_ready_short()
             #     self.ul.refresh()
             # case Qt.Key_W:
             #     self.um.refresh()

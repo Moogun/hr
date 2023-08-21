@@ -17,7 +17,7 @@ class Box6(QFrame):
         vbox = QVBoxLayout(self)
 
         vbox1 = QVBoxLayout()
-        label = QLabel('PRO SHCODE')
+        label = QLabel('BOX-6 PRO SHCODE')
         vbox1.addWidget(label)
 
         self.table = QTableWidget(1, 1)

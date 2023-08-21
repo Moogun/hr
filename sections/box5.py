@@ -13,7 +13,7 @@ class Box5(QFrame):
         vbox = QVBoxLayout(self)
 
         vbox1 = QVBoxLayout()
-        label = QLabel('PROG')
+        label = QLabel('BOX-5 PROGRAM')
         vbox1.addWidget(label)
 
         self.table = QTableWidget(3, 4)

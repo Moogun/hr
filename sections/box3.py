@@ -21,7 +21,7 @@ class Box3(QFrame):
         vbox = QVBoxLayout(self)
 
         vbox1 = QVBoxLayout()
-        label = QLabel('TR VAL')
+        label = QLabel('BOX-3 TR VAL')
         vbox1.addWidget(label)
 
         self.table = QTableWidget(1, 1)
