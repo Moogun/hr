@@ -1,7 +1,6 @@
 import pandas as pd
-import numpy as np
-from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, \
-    QLabel, QFrame, QPushButton, QRadioButton, QTableWidget, QTableWidgetItem, QAbstractItemView
+from PyQt5.QtWidgets import QVBoxLayout,  \
+    QLabel, QFrame, QTableWidget, QTableWidgetItem, QAbstractItemView, QDesktopWidget
 from PyQt5.QtGui import QColor
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go

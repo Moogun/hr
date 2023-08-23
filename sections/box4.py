@@ -42,6 +42,9 @@ class Box4(QFrame):
 
         self.table.clear()
         print('self. dfs', self.dfs)
+        # csp_path = 'half_min.csv'
+        # self.dfs.to_csv(csp_path, index=False)
+
         self.dfs = self.dfs.drop(columns=['sign', 'open', 'high', 'low',
                                           'totofferrem', 'totbidrem', 'mdvolumetm', 'msvolumetm',
                                           'volume', 'mdchecnttm', 'mschecnttm', 'mdvolume', 'msvolume'

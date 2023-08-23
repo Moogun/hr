@@ -1,5 +1,6 @@
 from network.tr_val import Tr_Val
 from network.tr_days import Tr_Days
+from network.tr_today import Tr_Today
 from network.tr_program import Tr_Program
 from network.tr_pro_shcode import Tr_Pro_Shcode
 from network.tr_half_min import Tr_Half_Min
@@ -142,6 +143,24 @@ class NetworkModel:
             self.dfs = self.ready_short.fetch()
             print('ready_short second try --- 1', self.dfs)
             self.tr_days.event.wait()
+        except:
+            print('ready_short second try block ')
+
+        return self.dfs
+
+    def fetch_tr_today(self):
+        sh = self.p_instance.shcode
+
+        if sh is not None:
+            self.tr_today = Tr_Today(sh)
+        else:
+            print('sh ', sh, '- samsung')
+            self.tr_today = Tr_Today('005930')
+
+        try:
+            self.dfs = self.tr_today.fetch()
+            print('ready_short second try --- 1', self.dfs)
+            self.tr_today.event.wait()
         except:
             print('ready_short second try block ')
 

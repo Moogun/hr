@@ -7,6 +7,7 @@ from sections.box3 import Box3
 from sections.box4 import Box4
 from sections.box5 import Box5
 from sections.box6 import Box6
+from sections.box7 import Box7
 from sections.box8 import Box8
 
 from q_params import Q_Params
@@ -24,6 +25,7 @@ class View(QWidget):
         self.box4 = Box4(self.model)
         self.box5 = Box5(self.model)
         self.box6 = Box6(self.model)
+        self.box7 = Box7(self.model)
         self.box8 = Box8(self.model)
 
         vbox = QVBoxLayout()
@@ -32,6 +34,7 @@ class View(QWidget):
         u_box.addWidget(self.box1)
         u_box.addWidget(self.box3)
         u_box.addWidget(self.box5)
+        u_box.addWidget(self.box7)
 
         l_box = QHBoxLayout()
         l_box.addWidget(self.box2)
@@ -62,6 +65,9 @@ class View(QWidget):
 
     def update_ready_short(self):
         self.box8.update_ready_short()
+
+    def update_tr_today(self):
+        self.box7.update_tr_today()
 
     def keyPressEvent(self, event):
         key = event.key()
@@ -95,6 +101,10 @@ class View(QWidget):
             case Qt.Key_6:
                 print('key6 ')
                 self.controller.ask_tr_pro_shcode()
+
+            case Qt.Key_7:
+                print('key6 ')
+                self.controller.ask_tr_today()
 
             case Qt.Key_8:
                 print('key8 ')

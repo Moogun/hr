@@ -39,7 +39,7 @@ class Box8(QFrame):
         if self.dfs.empty:
             print("empty data")
         else:
-            self.dfs = self.dfs.drop(columns=['sign'])
+            self.dfs = self.dfs.drop(columns=['sign', 'volume', 'tovalue', 'shcode'])
 
             # Set the table size to match the DataFrame size
             num_rows, num_cols = self.dfs.shape
@@ -54,11 +54,27 @@ class Box8(QFrame):
                     item = QTableWidgetItem(str(self.dfs.iloc[row][col]))
                     self.table.setItem(row, col, item)
 
+            self.color_rows(num_rows, num_cols)
             self.table.resizeColumnsToContents()
             self.table.resizeRowsToContents()
 
             self.update_chart(self.dfs)
-    #
+
+    def color_rows(self, num_rows, num_cols):
+        for row in range(num_rows):
+
+            diff = pd.to_numeric(self.dfs.loc[row, 'tovoldif'])
+            if diff < 0:
+                self.color_row(row, color_dict['cornflowerblue'])
+            else:
+                self.color_row(row, color_dict['pink'])
+
+
+    def color_row(self, row, color):
+        row_items = [self.table.item(row, col) for col in range(self.table.columnCount())]
+        for item in row_items:
+            item.setBackground(color)
+
     def update_chart(self, dfs):
         x = dfs['date']
         y = dfs['price']
@@ -78,8 +94,8 @@ class Box8(QFrame):
                 go.Scatter(y=y, x=x, name='price', mode='lines+markers'),
                 go.Scatter(x=x, y=y_bar, mode='lines+markers', yaxis='y2', name='remaining',
                            marker=dict(color='gray')),
-                go.Bar(x=x, y=y_bar2, name='new', marker=dict(color='lightblue')),
-                go.Bar(x=x, y=y_bar3, name='off', marker=dict(color='salmon')),
+                # go.Bar(x=x, y=y_bar2, name='new', marker=dict(color='lightblue')),
+                # go.Bar(x=x, y=y_bar3, name='off', marker=dict(color='salmon')),
             ],
             layout={
                 'margin': {'l': 10, 'r': 10, 't': 30, 'b': 10},  # Minimized margins

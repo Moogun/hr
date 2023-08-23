@@ -2,6 +2,7 @@ class Model:
     def __init__(self):
         self.data = 0
         self.tr_days = None
+        self.tr_today = None
         self.tr_val = None
         self.tr_pro = None
         self.tr_half_min = None
@@ -53,3 +54,14 @@ class Model:
     def get_ready_short(self):
         print('getting get_ready_short')
         return self.ready_short
+
+
+    # BOX 7  ------------------------------------------
+    def set_tr_today(self, value):
+        print('tr_today setting, ', value)
+        self.tr_today = value
+
+    def get_tr_today(self):
+        print('getting get_ready_short')
+        return self.tr_today
+

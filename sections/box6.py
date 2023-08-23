@@ -36,6 +36,9 @@ class Box6(QFrame):
         if self.dfs is not None:
             self.table.clear()
 
+            # csp_path = 'pro_sh.csv'
+            # self.dfs.to_csv(csp_path, index=False)
+
             # a = pd.to_numeric(self.dfs['stksvolume'])
             # b = pd.to_numeric(self.dfs['offervolume'])
             # c = pd.to_numeric(self.dfs['volume'])
@@ -69,7 +72,7 @@ class Box6(QFrame):
         x = pd.to_numeric(x)
         y_price = pd.to_numeric(y_price)
 
-        y_bar = dfs['svolume']
+        y_bar = dfs['svalue']
         y_bar = pd.to_numeric(y_bar)
 
         miny, maxy = self.adjust_y_axis_range(y_bar)

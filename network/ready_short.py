@@ -24,3 +24,7 @@ class Ready_Short:
         print('Ready_Short', shcode)
         self.shcode = shcode
 
+    def occur(self):
+        xaquery = XAQuery()
+        dfs = xaquery.block_request("t1941", shcode=self.shcode, sdate=self.start_date, edate=self.end_date)
+

@@ -38,4 +38,8 @@ class Controller:
         self.model.set_ready_short(data)
         self.view.update_ready_short()
 
+    def ask_tr_today(self):
+        data = self.network_model.fetch_tr_today()
+        self.model.set_tr_today(data)
+        self.view.update_tr_today()
 
