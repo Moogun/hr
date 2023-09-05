@@ -10,4 +10,12 @@ color_dict = {
     'lightgreen': QColor(144, 238, 144),
     'blush': QColor(210, 31, 60),
     'barnred': QColor(124, 10, 2),
+    'red1': QColor(255,228,225), # misty rose
+    'red2': QColor(255,123,123),
+    'red3': QColor(255,82,82),
+    'red4': QColor(167,0,0),
+    'gray1': QColor(245, 245, 245), # whitesmoke
+    'gray2': QColor(220, 220, 220), # Gainsboro
+    'gray3': QColor(211,211,211), #lightgray
+
 }

@@ -1,3 +1,4 @@
+import pandas as pd
 class Controller:
     def __init__(self, model, network_model):
         print('controller')
@@ -13,7 +14,12 @@ class Controller:
         self.view.update_tr_days()
 
     def ask_tr_val(self):
+        # date check, today is 230801,
+        # dates = [ 230801.csv, 230731, 230730 ]
+        # if dates.contain(today), overwrite ? :
+        # else : just load
         data = self.network_model.fetch_tr_val()
+        # data.to_csv('val.csv', index=False) # Set index=False to avoid writing row numbers as a separate column
         self.model.set_tr_val(data)
         self.view.update_tr_val()
 

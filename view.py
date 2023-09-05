@@ -83,6 +83,10 @@ class View(QWidget):
                 self.p_instance.market = 'q'
                 self.controller.ask_tr_val()
 
+            case Qt.Key_D:
+                self.p_instance.next = "20"
+                self.controller.ask_tr_val()
+
             case Qt.Key_2:
                 self.controller.ask_tr_days()
 

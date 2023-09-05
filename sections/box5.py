@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, \
 import pandas as pd
 from color_book import color_dict
 from q_params import Q_Params
-
+from PyQt5.QtGui import QFont
 class Box5(QFrame):
     def __init__(self, model):
         super().__init__()
@@ -17,6 +17,8 @@ class Box5(QFrame):
         vbox1.addWidget(label)
 
         self.table = QTableWidget(3, 4)
+        self.font = QFont()
+        self.font.setPointSize(8)
         vbox1.addWidget(self.table)
 
         vbox.addLayout(vbox1)
@@ -53,6 +55,7 @@ class Box5(QFrame):
             for row in range(num_rows):
                 for col in range(num_cols):
                     item = QTableWidgetItem(str(self.dfs.iloc[row][col]))
+                    item.setFont(self.font)
                     self.table.setItem(row, col, item)
 
             self.color_rows(num_rows, num_cols)
@@ -62,16 +65,19 @@ class Box5(QFrame):
 
     def color_rows(self, num_rows, num_cols):
         for row in range(num_rows):
-            vol = pd.to_numeric(self.dfs.loc[row, 'svolume'])
+            svol = pd.to_numeric(self.dfs.loc[row, 'svolume'])
             diff = pd.to_numeric(self.dfs.loc[row, 'diff'])
-            if vol < 0 and diff < 0:
-                self.color_row(row, color_dict['blush'])
-            elif vol < 0 and diff > 0:
-                self.color_row(row, color_dict['cornflowerblue'])
-            elif vol > 0 and diff > 0:
-                self.color_row(row, color_dict['lightgreen'])
-            else:
-                self.color_row(row, color_dict['lavender'])
+            # if vol < 0 and diff < 0:
+            #     self.color_row(row, color_dict['blush'])
+            # elif vol < 0 and diff > 0:
+            #     self.color_row(row, color_dict['cornflowerblue'])
+            # elif vol > 0 and diff > 0:
+            #     self.color_row(row, color_dict['lightgreen'])
+            # else:
+            #     self.color_row(row, color_dict['lavender'])
+
+            if svol > 0:
+                self.color_row(row, color_dict['red1'])
 
     def color_row(self, row, color):
         row_items = [self.table.item(row, col) for col in range(self.table.columnCount())]

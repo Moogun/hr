@@ -7,6 +7,8 @@ import plotly.graph_objects as go
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from color_book import color_dict
 from q_params import Q_Params
+from PyQt5.QtGui import QFont, QBrush
+from PyQt5.QtCore import Qt
 
 class Box3(QFrame):
 
@@ -24,6 +26,9 @@ class Box3(QFrame):
         vbox1.addWidget(label)
 
         self.table = QTableWidget(1, 1)
+        self.font = QFont()
+        self.font.setPointSize(8)
+
         vbox1.addWidget(self.table)
 
         vbox.addLayout(vbox1)
@@ -51,8 +56,16 @@ class Box3(QFrame):
             self.table.setHorizontalHeaderLabels(list(self.dfs.columns))
 
             for row in range(num_rows):
+                cell_value = pd.to_numeric(self.dfs.loc[row, 'diff'])
                 for col in range(num_cols):
                     item = QTableWidgetItem(str(self.dfs.iloc[row][col]))
+                    item.setFont(self.font)
+
+                    if 0 > cell_value :
+                        item.setForeground(QBrush(Qt.blue))
+                    elif 0 < cell_value:
+                        item.setForeground(QBrush(Qt.darkRed))
+
                     self.table.setItem(row, col, item)
 
             self.color_rows(num_rows, num_cols)
@@ -63,12 +76,12 @@ class Box3(QFrame):
     def color_rows(self, num_rows, num_cols):
         for row in range(num_rows):
             cell_value = pd.to_numeric(self.dfs.loc[row, 'diff'])
-            if 0 <= cell_value < 3:
-                self.color_row(row, color_dict['lavender'])
-            elif 3 <= cell_value < 7:
-                self.color_row(row, color_dict['thistle'])
-            elif 7 <= cell_value < 1000:
-                self.color_row(row, color_dict['plum'])
+            # if 10 <= cell_value < 20:
+            #     self.color_row(row, color_dict['gray1']) # whitesmoke
+            # elif 20 <= cell_value < 1000:
+            #     self.color_row(row, color_dict['gray3']) # lightGray
+            if 10 <= cell_value:
+                self.color_row(row, color_dict['gray3']) # lightGray
 
     def color_row(self, row, color):
         row_items = [self.table.item(row, col) for col in range(self.table.columnCount())]
