@@ -9,6 +9,13 @@ class Model:
         self.tr_pro_shcode = None
         self.ready_short = None
 
+    # BOX1  ------------------------------------------
+    def set_tr_future(self, value):
+        self.tr_future = value
+
+    def get_tr_future(self):
+        return self.tr_future
+
     # BOX2  ------------------------------------------
     def set_tr_days(self, value):
         self.tr_days = value

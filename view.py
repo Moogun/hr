@@ -47,6 +47,10 @@ class View(QWidget):
 
         self.setLayout(vbox)
 
+    def update_tr_future(self):
+        print('update_tr_future')
+        self.box1.update_tr_future()
+
     def update_tr_days(self):
         self.box2.update_tr_days()
 
@@ -72,8 +76,11 @@ class View(QWidget):
     def keyPressEvent(self, event):
         key = event.key()
         match key:
-            case Qt.Key_Q:
+            case Qt.Key_1:
                 print('111')
+                self.p_instance.market = 'p'
+                self.controller.ask_tr_future()
+
             case Qt.Key_3:
                 # not sure if this is good or bad
                 self.p_instance.market = 'p'

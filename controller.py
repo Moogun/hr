@@ -8,6 +8,11 @@ class Controller:
     def set_view(self, view):
         self.view = view
 
+    def ask_tr_future(self):
+        data = self.network_model.fetch_tr_future()
+        self.model.set_tr_future(data)
+        self.view.update_tr_future()
+
     def ask_tr_days(self):
         data = self.network_model.fetch_tr_days()
         self.model.set_tr_days(data)

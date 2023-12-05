@@ -1,3 +1,4 @@
+from network.tr_future import Tr_Future
 from network.tr_val import Tr_Val
 from network.tr_days import Tr_Days
 from network.tr_today import Tr_Today
@@ -13,6 +14,16 @@ from datetime import datetime, timedelta
 class NetworkModel:
     def __init__(self):
         self.p_instance = Q_Params()
+
+    def fetch_tr_future(self):
+        print('fetch_tr_future')
+        # if self.p_instance.market == "p":
+        #     self.tr_future = Tr_Future('1', '0')
+        # else:
+        #     self.tr_val = Tr_Future('2', '0')
+        #
+        # self.dfs = self.tr_val.fetch()
+
 
     # market 0, 1(kospi), 2(kosdaq) -- 0(today), 1(yesterday)
     def fetch_tr_val(self):

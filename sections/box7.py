@@ -82,8 +82,8 @@ class Box7(QFrame):
 
         # # Set the table size to match the DataFrame size
         num_rows, num_cols = self.dfs.shape
-        self.table.setRowCount(num_rows)
-        self.table.setColumnCount(num_cols)
+        self.table.setRowCount(num_cols)
+        self.table.setColumnCount(num_rows)
 
         # Set the column headers to match the DataFrame column indices
         self.table.setHorizontalHeaderLabels(list(self.dfs.columns))
@@ -94,24 +94,6 @@ class Box7(QFrame):
                 val = self.dfs.iloc[row][col]
                 item = QTableWidgetItem(str(val))
                 self.table.setItem(row, col, item)
-                # print('val', val, type(val))
-                # try:
-                    # val = pd.to_numeric(val)
-                    # if val < -5:
-                    #     # red_brush = QBrush(QColor("red"))
-                    #     item.setBackground(color_dict['pink'])
-                    # elif -5 <= val < 0.01:
-                    #     item.setBackground(color_dict['lavender'])
-                    #
-                    # elif 0.01 <= val < 5:
-                    #     item.setBackground(color_dict['cornflowerblue'])
-                    #
-                    # else:
-                    #     item.setBackground(color_dict['lightgreen'])
-
-                # except (ValueError, TypeError):
-                #     print('ValueError', ValueError)
-
 
         self.table.resizeColumnsToContents()
         self.table.resizeRowsToContents()
