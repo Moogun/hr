@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from q_params import Q_Params
 from PyQt5.QtGui import QColor, QBrush
+from PyQt5.QtCore import Qt
 
 class Box2(QFrame):
     def __init__(self, model):
@@ -22,7 +23,7 @@ class Box2(QFrame):
         vbox = QVBoxLayout(self)
 
         vbox1 = QVBoxLayout()
-        label = QLabel('BOX-2 DAYS')
+        label = QLabel('BOX-2 DAYS-VOL 10만')
         vbox1.addWidget(label)
 
         self.table = QTableWidget(3, 4)
@@ -73,23 +74,30 @@ class Box2(QFrame):
                                            })
 
         field = ['volume',
-                '사모', '증권', '보험', '투신',
+                '사모', '증권',
+                 # '보험',
+                 '투신',
                  # '은행', '종금',
-                 '기금', '기타', '개인', '등록외국',
+                 '기금',
+                 # '기타',
+                 '개인',
+                 # '등록외국',
                  # '미등록외국', '국가외',
                  '기관', '외인계', '기타계(기타+국가)' ]
 
         for i in field:
-            self.dfs[i] = (pd.to_numeric(self.dfs[i]) / 100000).round(3)
+            self.dfs[i] = (pd.to_numeric(self.dfs[i]) / 100000).round(1)
 
         self.dfs = self.dfs.drop(columns=['sign','diff',
-                                          '은행', '종금', '미등록외국','국가외','기타계(기타+국가)',
+                                          'volume',
+                                          '은행', '종금', '미등록외국','등록외국',
+                                          '국가외','기타계(기타+국가)',
+                                          '기타',
+                                          '보험',
                                           '사모(단가)', '증권(단가)', '보험(단가)', '투신(단가)','기금(단가)',
                                           '기타(단가)', '개인(단가)', '등록외국(단가)', '기관(단가)','외인계(단가)',
                                           '은행(단가)', '종금(단가)', '미등록외국(단가)', '국가외(단가)','기타계(기타+국가)(단가)'
                                           ])
-        #                                   'volume', 'mdchecnttm', 'mschecnttm', 'mdvolume', 'msvolume'
-        #                                   ])
 
         # Set the table size to match the DataFrame size
         num_rows, num_cols = self.dfs.shape
@@ -103,23 +111,28 @@ class Box2(QFrame):
             for col in range(num_cols):
 
                 val = self.dfs.iloc[row][col]
+                if val == 0:
+                    val = '-'
                 item = QTableWidgetItem(str(val))
                 self.table.setItem(row, col, item)
                 # print('val', val, type(val))
 
                 try:
                     val = pd.to_numeric(val)
-                    if val < -5:
-                        # red_brush = QBrush(QColor("red"))
-                        item.setBackground(color_dict['pink'])
-                    elif -5 <= val < 0.01:
-                        item.setBackground(color_dict['lavender'])
+                    if  val <= -3:
+                        item.setForeground(QBrush(Qt.blue))
+                        item.setBackground(color_dict['gray3'])
+                    elif 0 < val < -3:
+                        item.setForeground(QBrush(Qt.blue))
 
-                    elif 0.01 <= val < 5:
-                        item.setBackground(color_dict['cornflowerblue'])
+                    elif 3 > val > 0:
+                        item.setForeground(QBrush(Qt.darkRed))
 
+                    elif val >= 3:
+                        item.setForeground(QBrush(Qt.darkRed))
+                        item.setBackground(color_dict['red1'])
                     else:
-                        item.setBackground(color_dict['lightgreen'])
+                        print('none')
 
                 except (ValueError, TypeError):
                     print('ValueError', ValueError)
