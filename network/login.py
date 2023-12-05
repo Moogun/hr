@@ -3,14 +3,16 @@ from pyxing.session import *
 class Login:
 
     def __init__(self, user_id, password, cert):
+        print("LOGIN")
         self.id = user_id
         self.password = password
         self.cert = cert
 
     def login(self):
         xasession = XASession(type=1)               # 0: 실서버, 1: 모의서버, 2: xingACE
+        print("xasession ready")
         xasession.login(self.id, self.password, self.cert, block=True)
-
+        
         print("서버이름: ", xasession.get_server_name())
         print("연결상태: ", xasession.is_connected())
         print("계좌수  : ", xasession.get_account_list_count())
