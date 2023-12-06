@@ -59,7 +59,14 @@ class Box7(QFrame):
                                           'memedan',
                                           'offernocd1', 'bidnocd1',
                                           'offernocd2', 'bidnocd2',
-
+                                          'listing',
+                                          'memedan',
+                                          'offernocd1','bidno1',
+                                          'offernocd2','bidno2',
+                                          'offernocd3','bidno3',
+                                          'offernocd4','bidno4',
+                                          'offernocd5','bidno5',
+                                          'offernocd5',
                                           # 'janginfo',
                                           # # 'tongwha',
                                           # 'shcode', 'target','capital',
@@ -82,18 +89,22 @@ class Box7(QFrame):
 
         # # Set the table size to match the DataFrame size
         num_rows, num_cols = self.dfs.shape
+        # self.table.setRowCount(num_rows)
+        # self.table.setColumnCount(num_cols)
         self.table.setRowCount(num_cols)
         self.table.setColumnCount(num_rows)
 
         # Set the column headers to match the DataFrame column indices
-        self.table.setHorizontalHeaderLabels(list(self.dfs.columns))
+        # self.table.setHorizontalHeaderLabels(list(self.dfs.columns))
+        self.table.setVerticalHeaderLabels(list(self.dfs.columns))
 
+        # 1 and 10
         for row in range(num_rows):
             for col in range(num_cols):
 
                 val = self.dfs.iloc[row][col]
                 item = QTableWidgetItem(str(val))
-                self.table.setItem(row, col, item)
+                self.table.setItem(col, row, item)
 
         self.table.resizeColumnsToContents()
         self.table.resizeRowsToContents()
