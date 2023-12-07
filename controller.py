@@ -45,6 +45,11 @@ class Controller:
         self.model.set_tr_half_min(data)
         self.view.update_tr_half_min()
 
+    def ask_tr_market(self):
+        data = self.network_model.fetch_tr_market()
+        self.model.set_tr_market(data)
+        self.view.update_tr_market()
+
     def ask_ready_short(self):
         data = self.network_model.fetch_ready_short()
         self.model.set_ready_short(data)

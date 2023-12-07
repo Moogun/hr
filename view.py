@@ -64,6 +64,9 @@ class View(QWidget):
     def update_tr_half_min(self):
         self.box4.update_tr_half_min()
 
+    def update_tr_market(self):
+        self.box4.update_tr_market()
+
     def update_tr_pro_shcode(self):
         self.box6.update_tr_pro_shcode()
 
@@ -106,8 +109,9 @@ class View(QWidget):
                 self.controller.ask_tr_pro()
 
             case Qt.Key_4:
-                print('key4 shcode', self.p_instance.shcode)
-                self.controller.ask_tr_half_min()
+                # print('key4 shcode', self.p_instance.shcode)
+                self.p_instance.market = 'p'
+                self.controller.ask_tr_market()
 
             case Qt.Key_6:
                 print('key6 ')

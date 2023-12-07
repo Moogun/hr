@@ -5,6 +5,7 @@ from network.tr_today import Tr_Today
 from network.tr_program import Tr_Program
 from network.tr_pro_shcode import Tr_Pro_Shcode
 from network.tr_half_min import Tr_Half_Min
+from network.tr_market import Tr_Market
 from network.ready_short import Ready_Short
 from q_params import Q_Params
 import pandas as pd
@@ -103,6 +104,13 @@ class NetworkModel:
             self.tr_pro.event.wait()
         except:
             print('second try block ')
+        return self.dfs
+
+    def fetch_tr_market(self):
+        self.tr_market = Tr_Market()
+        self.dfs = self.tr_market.fetch()
+        print('fetch_tr_market dfs  ')
+        self.tr_market.event.wait()
         return self.dfs
 
     def fetch_tr_days(self):

@@ -44,7 +44,13 @@ class Model:
     def get_tr_half_min(self):
         return self.tr_half_min
 
-    # BOX 6  ------------------------------------------
+    def set_tr_market(self, value):
+        self.tr_market = value
+
+    def get_tr_market(self):
+        return self.tr_market
+
+            # BOX 6  ------------------------------------------
     def set_tr_pro_shcode(self, value):
         print('setting, ', value)
         self.tr_pro_shcode = value
