@@ -17,13 +17,14 @@ class NetworkModel:
 
     def fetch_tr_future(self):
         print('fetch_tr_future')
-        # if self.p_instance.market == "p":
-        #     self.tr_future = Tr_Future('1', '0')
+        fo = self.p_instance.focode
+        self.tr_future = Tr_Future(fo)
         # else:
         #     self.tr_val = Tr_Future('2', '0')
         #
-        # self.dfs = self.tr_val.fetch()
-
+        self.dfs = self.tr_future.fetch()
+        self.tr_future.event.wait()
+        return self.dfs
 
     # market 0, 1(kospi), 2(kosdaq) -- 0(today), 1(yesterday)
     def fetch_tr_val(self):

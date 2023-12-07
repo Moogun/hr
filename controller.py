@@ -10,6 +10,7 @@ class Controller:
 
     def ask_tr_future(self):
         data = self.network_model.fetch_tr_future()
+        print('ask_tr_future data', data)
         self.model.set_tr_future(data)
         self.view.update_tr_future()
 

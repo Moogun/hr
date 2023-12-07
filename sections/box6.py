@@ -80,7 +80,7 @@ class Box6(QFrame):
 
         fig = go.Figure(
             data=[
-                go.Bar(x=x, y=y_bar, name='vol', marker=dict(color='gray')),
+                go.Scatter(x=x, y=y_bar, name='vol', marker=dict(color='gray'), mode='lines+markers'),
                 go.Scatter(x=x, y=y_price, name='price', yaxis='y2', mode='lines+markers'),
             ],
             layout={

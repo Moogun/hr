@@ -19,7 +19,7 @@ class View(QWidget):
 
         self.p_instance = Q_Params()
 
-        self.box1 = Box1(self.controller)
+        self.box1 = Box1(self.model)
         self.box2 = Box2(self.model)
         self.box3 = Box3(self.model)
         self.box4 = Box4(self.model)
@@ -48,7 +48,7 @@ class View(QWidget):
         self.setLayout(vbox)
 
     def update_tr_future(self):
-        print('update_tr_future')
+        print('update_tr_future in View')
         self.box1.update_tr_future()
 
     def update_tr_days(self):

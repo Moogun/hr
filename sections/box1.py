@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLineEdit, \
     QLabel, QFrame, QPushButton, QRadioButton, \
-    QTableWidget, QTableWidgetItem, QWidget
+    QTableWidget, QTableWidgetItem, QWidget, QComboBox
 
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from q_params import Q_Params
@@ -60,13 +60,76 @@ class Box1(QFrame):
         vbox2.addWidget(self.label)
         vbox2.addWidget(self.line_edit)
         # # vbox2.addWidget(button)
+
         vbox.addLayout(vbox2)
+
+        self.combo_box = QComboBox()
+        self.combo_box.addItem("1CNTC000")
+        self.combo_box.addItem("1CNV1000")
+        self.combo_box.addItem("Option 3")
+        self.combo_box.addItem("Option 4")
+
+        self.combo_box.activated[str].connect(self.on_combobox_activated)
+        vbox3 = QVBoxLayout()
+        vbox3.addWidget(self.combo_box)
+
+        vbox.addLayout(vbox3)
 
         self.table = QTableWidget(1, 1)
         vbox.addWidget(self.table)
 
+    def on_combobox_activated(self, text):
+        # Update the label when an item is selected in the combo box
+        self.label.setText("Future - : " + text)
+        self.p_instance.set_focode(text)
+
     def update_tr_future(self):
-        print('update tr future')
+        self.dfs = self.model.get_tr_future()
+
+        self.table.clear()
+
+        self.dfs = self.dfs.rename(columns={'stimeqrt': '거래량전일동시간',
+                                            'mgjv': '미결제',
+                                            'mgjvdiff': '미결제증감',
+                                            'recprice': '기준가',
+                                            'theoryprice': '이론가',
+                                            'glyl': '괴리율',
+                                            'lastmonth':'만기일',
+                                            'jandatecnt':'잔여일',
+
+                                            'gmprice':'근월물 현재가',
+                                            'gmchange':'근월물 전일대비',
+                                            'gmdiff': '근월물 등락율',
+
+                                            'impv': '내재변동성',
+                                            'sbasis' :'시장 베이시스',
+                                            'ibasis' : '이론 베이시스',
+                                            'gmfutcode': '근월물 코드',
+                                            })
+
+        self.dfs = self.dfs.drop(columns=['sign',
+                                          'value',
+                                          'uplmtprice',
+                                          'dnlmtprice',
+                                          'high52w',
+                                          'low52w',
+                                          ])
+        # # Set the table size to match the DataFrame size
+        num_rows, num_cols = self.dfs.shape
+        self.table.setRowCount(num_cols)
+        self.table.setColumnCount(num_rows)
+
+        self.table.setVerticalHeaderLabels(list(self.dfs.columns))
+
+        # 1 and 10
+        for row in range(num_rows):
+            for col in range(num_cols):
+                val = self.dfs.iloc[row][col]
+                item = QTableWidgetItem(str(val))
+                self.table.setItem(col, row, item)
+
+        self.table.resizeColumnsToContents()
+        self.table.resizeRowsToContents()
 
     def on_radio_button_toggled(self):
         if self.radio_btn1.isChecked():
@@ -75,12 +138,18 @@ class Box1(QFrame):
             self.p_instance.set_market('q')
 
     def on_text_changed(self, text):
-        self.label.setText('SH-'+ text)
-        if len(text) == 6:
-            self.p_instance.set_shcode(text)
-            print('shcode updated', self.p_instance.shcode)
-        else:
-            print('not 6 digits')
+        # self.label.setText('SH-'+ text)
+        # if len(text) == 6:
+        #     self.p_instance.set_shcode(text)
+        #     print('shcode updated', self.p_instance.shcode)
+        # else:
+        #     print('not 6 digits')
+        self.label.setText('Future-' + text)
+        # if len(text) == 6:
+        self.p_instance.set_focode(text)
+        #     print('shcode updated', self.p_instance.shcode)
+        # else:
+        #     print('not 6 digits')
 
     # def refresh(self):
     #     print('q')

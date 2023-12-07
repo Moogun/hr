@@ -4,7 +4,7 @@ import asyncio
 
 class Tr_Future:
     def __init__(self, focode):
-        print('Tr_Val')
+        print('Tr_Future')
         self.focode = focode
         self.event = threading.Event()
 
@@ -13,8 +13,8 @@ class Tr_Future:
         xaquery = XAQuery()
         dfs = xaquery.block_request("t8402", focode=self.focode)
         self.event.set() # Signal that dfs has been filled
-
-        return dfs[1]
+        print('dfs[0]', dfs[0])
+        return dfs[0]
 
     def set_focode(self, focode):
         self.focode = focode
