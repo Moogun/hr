@@ -42,7 +42,7 @@ class Box2(QFrame):
         self.table.clear()
 
         self.dfs = self.dfs.rename(columns={'tjj0000_vol': '사모',
-                                           'tjj0001_vol': '증권',
+                                           'tjj0001_vol': '금투',
                                            'tjj0002_vol': '보험',
                                            'tjj0003_vol': '투신',
                                            'tjj0004_vol': '은행',
@@ -74,7 +74,7 @@ class Box2(QFrame):
                                            })
 
         field = ['volume',
-                '사모', '증권',
+                '사모', '금투',
                  # '보험',
                  '투신',
                  # '은행', '종금',

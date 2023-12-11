@@ -19,10 +19,10 @@ class Tr_Market:
                                     # gubun3 = self.gubun3,
                                     # gubun4 = self.gubun4,
                                     # 1 vol, 2 value
-                                    gubun1=2,
-                                    gubun2=2,
-                                    gubun3=2,
-                                    gubun4=2,
+                                    gubun1=2, # 금액 2
+                                    gubun2=2, # 계약수 1 선물,옵션 금액인지 확인 불가, 숫자 않 맞음
+                                    gubun3=2, # 사용x
+                                    gubun4=2, # 계약수 1 not working 선물,옵션 금액인지 확인 불가, 숫자 않 맞음
                                     )
         self.event.set() # Signal that dfs has been filled
         print('dfs Tr_Market ', dfs)

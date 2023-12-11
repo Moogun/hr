@@ -125,8 +125,8 @@ class Box4(QFrame):
 
         self.newD = pd.concat([
             self.stock_p, self.stock_d,
-            self.option_p, self.option_d,
-            self.future_p,
+            # self.option_p, self.option_d, # 선물,옵션 금액인지 확인 불가, 숫자 않 맞음
+            # self.future_p, # 선물,옵션 금액인지 확인 불가, 숫자 않 맞음
                                ])
 
         #
