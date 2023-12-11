@@ -29,6 +29,16 @@ class Controller:
         self.model.set_tr_val(data)
         self.view.update_tr_val()
 
+    def ask_tr_vol(self):
+        # date check, today is 230801,
+        # dates = [ 230801.csv, 230731, 230730 ]
+        # if dates.contain(today), overwrite ? :
+        # else : just load
+        data = self.network_model.fetch_tr_vol()
+        # data.to_csv('val.csv', index=False) # Set index=False to avoid writing row numbers as a separate column
+        self.model.set_tr_vol(data)
+        self.view.update_tr_vol()
+
     def ask_tr_pro(self):
         data = self.network_model.fetch_tr_pro()
         self.model.set_tr_pro(data)

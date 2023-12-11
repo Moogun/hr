@@ -1,5 +1,6 @@
 from network.tr_future import Tr_Future
 from network.tr_val import Tr_Val
+from network.tr_vol import Tr_Vol
 from network.tr_days import Tr_Days
 from network.tr_today import Tr_Today
 from network.tr_program import Tr_Program
@@ -41,6 +42,23 @@ class NetworkModel:
         self.dfs['time'] = formatted_time
 
         self.tr_val.event.wait()
+        return self.dfs
+
+    def fetch_tr_vol(self):
+        print('network model fetch ')
+
+        if self.p_instance.market == "p":
+            self.tr_vol = Tr_Vol('1', '1')
+        else:
+            self.tr_vol = Tr_Vol('2', '1')
+
+        self.dfs = self.tr_vol.fetch()
+
+        current_time = datetime.now()
+        formatted_time = current_time.strftime("%H:%M:%S")
+        self.dfs['time'] = formatted_time
+
+        self.tr_vol.event.wait()
         return self.dfs
 
     def fetch_tr_pro(self):

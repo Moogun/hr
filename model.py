@@ -4,6 +4,7 @@ class Model:
         self.tr_days = None
         self.tr_today = None
         self.tr_val = None
+        self.tr_vol = None
         self.tr_pro = None
         self.tr_half_min = None
         self.tr_pro_shcode = None
@@ -28,6 +29,12 @@ class Model:
 
     def get_tr_val(self):
         return self.tr_val
+
+    def set_tr_vol(self, value):
+        self.tr_vol = value
+
+    def get_tr_vol(self):
+        return self.tr_vol
 
     # BOX5  ------------------------------------------
     def set_tr_pro(self, value):

@@ -58,6 +58,11 @@ class View(QWidget):
         self.box3.update_tr_val()
         # print(self.model.get_tr_val())
         # self.label.setText(f"Data: {self.model.get_tr_val()}")
+
+    def update_tr_vol(self):
+        self.box3.update_tr_vol()
+        # print(self.model.get_tr_val())
+        # self.label.setText(f"Data: {self.model.get_tr_val()}")
     def update_tr_pro(self):
         self.box5.update_tr_pro()
 
@@ -84,6 +89,18 @@ class View(QWidget):
                 self.p_instance.market = 'p'
                 self.controller.ask_tr_future()
 
+            case Qt.Key_A:
+                print('AA VOL PP')
+                # not sure if this is good or bad
+                self.p_instance.market = 'p'
+                self.controller.ask_tr_vol()
+
+            case Qt.Key_S:
+                print('SS VOL D')
+                # not sure if this is good or bad
+                self.p_instance.market = 'd'
+                self.controller.ask_tr_vol()
+
             case Qt.Key_3:
                 # not sure if this is good or bad
                 self.p_instance.market = 'p'
@@ -95,7 +112,7 @@ class View(QWidget):
 
             case Qt.Key_D:
                 self.p_instance.next = "20"
-                self.controller.ask_tr_val()
+                self.controller.ask_tr_valx()
 
             case Qt.Key_2:
                 self.controller.ask_tr_days()

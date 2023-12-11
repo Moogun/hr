@@ -73,6 +73,10 @@ class Box3(QFrame):
             self.table.resizeColumnsToContents()
             self.table.resizeRowsToContents()
 
+    def update_tr_vol(self):
+        self.dfs = self.model.get_tr_vol()
+        print('-- VOLUME', self.dfs)
+
     def color_rows(self, num_rows, num_cols):
         for row in range(num_rows):
             cell_value = pd.to_numeric(self.dfs.loc[row, 'diff'])
