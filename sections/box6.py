@@ -47,8 +47,11 @@ class Box6(QFrame):
             #
             # tril = 1000000000000
             # self.dfs['sgta'] = (pd.to_numeric(self.dfs['sgta']) / tril).round(2)
-            self.dfs = self.dfs.drop(columns=['date', 'sign','offervalue', 'stksvalue',
-                                              'offervolume','stksvolume',])
+            self.dfs = self.dfs.drop(columns=['date', 'sign',
+                                              'change', 'diff','volume',
+                                              'offervalue', 'stksvalue',
+                                              'offervolume','stksvolume',
+                                              ])
 
             num_rows, num_cols = self.dfs.shape
             self.table.setRowCount(num_rows)
