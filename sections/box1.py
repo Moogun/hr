@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLineEdit, \
 
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from q_params import Q_Params
+import csv
 
 class Box1(QFrame):
 
@@ -55,7 +56,7 @@ class Box1(QFrame):
         # # button = QPushButton('Update')
         # # button.clicked.connect(self.on_button_clicked)
         # # button.setFixedWidth(50)
-        #
+
         vbox2 = QHBoxLayout()
         vbox2.addWidget(self.label)
         vbox2.addWidget(self.line_edit)
@@ -64,10 +65,7 @@ class Box1(QFrame):
         vbox.addLayout(vbox2)
 
         self.combo_box = QComboBox()
-        self.combo_box.addItem("1CNTC000")
-        self.combo_box.addItem("1CNV1000")
-        self.combo_box.addItem("Option 3")
-        self.combo_box.addItem("Option 4")
+        self.load_data_from_csv()
 
         self.combo_box.activated[str].connect(self.on_combobox_activated)
         vbox3 = QVBoxLayout()
@@ -78,10 +76,21 @@ class Box1(QFrame):
         self.table = QTableWidget(1, 1)
         vbox.addWidget(self.table)
 
+    def load_data_from_csv(self):
+        try:
+            with open('f3.csv', newline='') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    display_text = row['name']
+                    code = row['code']
+                    self.combo_box.addItem(f"{display_text} ({code})", code)
+        except FileNotFoundError:
+            print("CSV file not found.")
+
     def on_combobox_activated(self, text):
         # Update the label when an item is selected in the combo box
-        self.label.setText("Future - : " + text)
-        self.p_instance.set_focode(text)
+        code = text[-10:].strip('()')
+        self.p_instance.set_focode(code)
 
     def update_tr_future(self):
         self.dfs = self.model.get_tr_future()
@@ -138,18 +147,9 @@ class Box1(QFrame):
             self.p_instance.set_market('q')
 
     def on_text_changed(self, text):
-        # self.label.setText('SH-'+ text)
-        # if len(text) == 6:
-        #     self.p_instance.set_shcode(text)
-        #     print('shcode updated', self.p_instance.shcode)
-        # else:
-        #     print('not 6 digits')
+        print('text future ---', text )
         self.label.setText('Future-' + text)
-        # if len(text) == 6:
         self.p_instance.set_focode(text)
-        #     print('shcode updated', self.p_instance.shcode)
-        # else:
-        #     print('not 6 digits')
 
     # def refresh(self):
     #     print('q')
